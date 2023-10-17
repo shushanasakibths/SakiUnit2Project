@@ -3,56 +3,97 @@ public class LinearEquation {
     private double y1;
     private double x2;
     private double y2;
+    private double xDistance;
+    private double yDistance;
     public LinearEquation(double x1, double y1, double x2, double y2) {
         this.x1 = x1;
         this.y1 = y1;
         this.x2 = x2;
         this.y2 = y2;
+        xDistance = x2 - x1;
+        yDistance = y2 - y1;
     }
 
-    public double round(double num) {
+    public double roundToHundredth(double num) {
         double roundNum = (double) Math.round(num * 100) / 100;
         return roundNum;
     }
     public double distance() {
-        double xDistance = x2 - x1;
-        double yDistance = y2 - y1;
         double insideRadical = Math.pow(xDistance, 2) + Math.pow(yDistance, 2);
         double distance  = Math.sqrt(insideRadical);
-        return round(distance);
+        return roundToHundredth(distance);
     }
 
     public double slope() {
-        double xDistance = x2 - x1;
-        double yDistance = y2 - y1;
         double slope = yDistance / xDistance;
-        return round(slope);
+        return roundToHundredth(slope);
     }
 
     public double yIntercept() {
-        double yInt = y1;
-        if (x1 < 0) {
-            while (x1 != 0 ) {
-                yInt += slope();
-                x1 += 1;
-            }
-        } else if (x1 > 0) {
-            while (x1 != 0) {
-                yInt -= slope();
-                x1 -= 1;
-            }
-        } else {
-            yInt = y1;
-        }
-        return round(yInt);
+        return y1 - (slope() * x1);
     }
 
     public String equation() {
-        String fractionSlope  = slope() + "";
-        int integer = fractionSlope.indexOf(".");
-        int decimal = fractionSlope.length() - integer - 1;
-        return integer  + " " + decimal ;
+        String equation = "";
+        if (yIntercept() == 0 && slope() == 0) {
+            return "y = 0";
+        }
+        if (yIntercept() == 0) {
+            if (yDistance / xDistance == 1 || yDistance / xDistance == -1) {
+                return  "y = " + ((int) yDistance / (int) xDistance) + "x";
+            } else if ((yDistance / xDistance) % 1 == 0) {
+                return "y = " + ((int) yDistance / (int) xDistance) + "x";
+            } else if (xDistance < 0 && yDistance < 0) {
+                return "y = -" + ((int) yDistance * -1) + "/" + ((int) xDistance * -1) + "x";
+            } else if (xDistance < 0) {
+                return "y = -" + yDistance + "/" + ((int) xDistance * -1) + "x";
+            } else {
+                return "y = " + (int) yDistance + "/" + (int) xDistance + "x";
+            }
+        }
+        if (slope() == 0) {
+            return "y = " + yIntercept();
+        }
+        if (yIntercept() >= 0) {
+            if (yDistance / xDistance == 1 || yDistance / xDistance == -1) {
+                equation =  "y = " + ((int) yDistance / (int) xDistance) + "x" + " + " + yIntercept();
+            } else if ((yDistance / xDistance) % 1 == 0) {
+                equation = "y = " + ((int) yDistance / (int) xDistance) + "x" + " + " + yIntercept();
+            } else if (xDistance < 0 && yDistance < 0) {
+                equation = "y = -" + ((int) yDistance * -1) + "/" + ((int) xDistance * -1) + "x" + " + " + yIntercept();
+            } else if (xDistance < 0) {
+                equation = "y = -" + yDistance + "/" + ((int) xDistance * -1) + "x" + " + " + yIntercept();
+            } else {
+                equation =  "y = " + (int) yDistance + "/" + (int) xDistance + "x" + " + " + yIntercept();
+            }
+        } else if (yIntercept() < 0) {
+            if (yDistance / xDistance == 1 || yDistance / xDistance == -1) {
+                equation = "y = " + ((int) yDistance / (int) xDistance) + "x" + "- " + (yIntercept() * -1);
+            } else if ((yDistance / xDistance) % 1 == 0) {
+                equation = "y = " + ((int) yDistance / (int) xDistance) + "x " + "- " + (yIntercept() * -1);
+            } else if (xDistance < 0 && yDistance < 0) {
+                equation = "y = -" + ((int) yDistance * -1) + "/" + ((int) xDistance * -1) + "x" + "- " + (yIntercept() * -1);
+            } else if (xDistance < 0) {
+                equation = "y = -" + yDistance + "/" + ((int) xDistance * -1) + "x " + "- " + (yIntercept() * -1);
+            } else {
+                equation = "y = " + (int) yDistance + "/" + (int) xDistance + "x " + "- " + (yIntercept() * -1);
+            }
+        }
+        return equation;
     }
 
+    public String coordinateForX(double x) {
+        double yPoint = roundToHundredth(slope() * x + yIntercept());
+        return "(" + x + ", " + yPoint + ")";
+    }
+
+    public String lineInfo() {
+        String lineInfo = "The two points are: (" + x1 + ", " + y1 + ") and (" + x2 + ", " + y2 + ")\n";
+        lineInfo += "The equation of the line between these points is: " + equation() + "\n";
+        lineInfo += "The slope of this line is: " + slope() + "\n";
+        lineInfo += "The y-intercept of this line is: " + yIntercept() + "\n";
+        lineInfo += "The distance between these points is " + distance();
+        return lineInfo;
+    }
 
 }
