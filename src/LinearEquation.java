@@ -39,14 +39,16 @@ public class LinearEquation {
             return "y = 0";
         }
         if (yIntercept() == 0) {
-            if (yDistance / xDistance == 1 || yDistance / xDistance == -1) {
-                return  "y = " + ((int) yDistance / (int) xDistance) + "x";
+            if (yDistance / xDistance == 1) {
+                return  "y = " + "x";
+            } else if ( yDistance / xDistance == -1 ) {
+                return  "y = -x";
             } else if ((yDistance / xDistance) % 1 == 0) {
                 return "y = " + ((int) yDistance / (int) xDistance) + "x";
             } else if (xDistance < 0 && yDistance < 0) {
                 return "y = -" + ((int) yDistance * -1) + "/" + ((int) xDistance * -1) + "x";
             } else if (xDistance < 0) {
-                return "y = -" + yDistance + "/" + ((int) xDistance * -1) + "x";
+                return "y = -" + (int) yDistance + "/" + ((int) xDistance * -1) + "x";
             } else {
                 return "y = " + (int) yDistance + "/" + (int) xDistance + "x";
             }
@@ -55,26 +57,30 @@ public class LinearEquation {
             return "y = " + yIntercept();
         }
         if (yIntercept() >= 0) {
-            if (yDistance / xDistance == 1 || yDistance / xDistance == -1) {
-                equation =  "y = " + ((int) yDistance / (int) xDistance) + "x" + " + " + yIntercept();
+            if (yDistance / xDistance == 1) {
+                equation = "y = " + "x" + " + " + yIntercept();
+            } else if ( yDistance / xDistance == -1 ) {
+                equation = "y = -x" + " + " + yIntercept();
             } else if ((yDistance / xDistance) % 1 == 0) {
-                equation = "y = " + ((int) yDistance / (int) xDistance) + "x" + " + " + yIntercept();
+                equation = "y = " + "x" + " + " + yIntercept();
             } else if (xDistance < 0 && yDistance < 0) {
-                equation = "y = -" + ((int) yDistance * -1) + "/" + ((int) xDistance * -1) + "x" + " + " + yIntercept();
+                equation = "y = " + ((int) yDistance * -1) + "/" + ((int) xDistance * -1) + "x" + " + " + yIntercept();
             } else if (xDistance < 0) {
-                equation = "y = -" + yDistance + "/" + ((int) xDistance * -1) + "x" + " + " + yIntercept();
+                equation = "y = -" + (int) yDistance + "/" + ((int) xDistance * -1) + "x" + " + " + yIntercept();
             } else {
                 equation =  "y = " + (int) yDistance + "/" + (int) xDistance + "x" + " + " + yIntercept();
             }
         } else if (yIntercept() < 0) {
-            if (yDistance / xDistance == 1 || yDistance / xDistance == -1) {
-                equation = "y = " + ((int) yDistance / (int) xDistance) + "x" + "- " + (yIntercept() * -1);
+            if (yDistance / xDistance == 1) {
+                equation = "y = " + "x" + " + " + yIntercept();
+            } else if ( yDistance / xDistance == -1 ) {
+                equation = "y = -x" + " + " + yIntercept();
             } else if ((yDistance / xDistance) % 1 == 0) {
                 equation = "y = " + ((int) yDistance / (int) xDistance) + "x " + "- " + (yIntercept() * -1);
             } else if (xDistance < 0 && yDistance < 0) {
-                equation = "y = -" + ((int) yDistance * -1) + "/" + ((int) xDistance * -1) + "x" + "- " + (yIntercept() * -1);
+                equation = "y = " + ((int) yDistance * -1) + "/" + ((int) xDistance * -1) + "x" + "- " + (yIntercept() * -1);
             } else if (xDistance < 0) {
-                equation = "y = -" + yDistance + "/" + ((int) xDistance * -1) + "x " + "- " + (yIntercept() * -1);
+                equation = "y = -" + (int) yDistance + "/" + ((int) xDistance * -1) + "x " + "- " + (yIntercept() * -1);
             } else {
                 equation = "y = " + (int) yDistance + "/" + (int) xDistance + "x " + "- " + (yIntercept() * -1);
             }
@@ -88,7 +94,7 @@ public class LinearEquation {
     }
 
     public String lineInfo() {
-        String lineInfo = "The two points are: (" + x1 + ", " + y1 + ") and (" + x2 + ", " + y2 + ")\n";
+        String lineInfo = "The two points are: (" + (int) x1 + ", " + (int) y1 + ") and (" + (int) x2 + ", " + (int) y2 + ")\n";
         lineInfo += "The equation of the line between these points is: " + equation() + "\n";
         lineInfo += "The slope of this line is: " + slope() + "\n";
         lineInfo += "The y-intercept of this line is: " + yIntercept() + "\n";
