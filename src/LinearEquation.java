@@ -15,8 +15,7 @@ public class LinearEquation {
     }
 
     public double roundToHundredth(double num) {
-        double roundNum = (double) Math.round(num * 100) / 100;
-        return roundNum;
+        return (double) Math.round(num * 100) / 100;
     }
     public double distance() {
         double insideRadical = Math.pow(xDistance, 2) + Math.pow(yDistance, 2);
